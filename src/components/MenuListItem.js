@@ -7,6 +7,9 @@ import { imageSize, colors, FONTSIZE_M, FONTSIZE_S, iconSize, menuSize, buttonSi
 	mediumButtonSize } from '../config/styles';
 import Icon from 'react-native-vector-icons/Feather';
 
+var _ = require('lodash');
+
+
 class MenuListItem extends Component {
 
   state = {
@@ -21,7 +24,8 @@ class MenuListItem extends Component {
      }
      const item = this.props.item;
      item.quantity = this.state.count
-     this.props.addToCart(item);
+     const newItems = _.mapKeys(item, 'name')
+     this.props.addToCart(newItems);
   }		
 
   increment = () => {
@@ -30,8 +34,8 @@ class MenuListItem extends Component {
      })
      const item = this.props.item;
      item.quantity = this.state.count;
-
-     this.props.addToCart(item);	 
+     const newItems = _.mapKeys(item, 'name')
+     this.props.addToCart(newItems);	 
   }	
 
   render() {
