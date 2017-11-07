@@ -21,13 +21,23 @@ export default (state=INITIAL_STATE, action) => {
 
       		return { ...state, data: newItems, loading:false, error: 'Success' };
 
-        case types.UPDATE_ITEM: 
-           const name = action.payload.name
-           return { ...state, [...state.cartData.name]: action.payload  }
+        case types.ADD_ITEM: 
+           return { ...state, cartData: {...state.cartData, ...action.payload}  }
+
+        case types.EDIT_ITEM:
+            return { ...state, cartData: {...state.cartData, ...action.payload} }
+    
+        case types.REMOVE_ITEM:
+          let newState = Object.keys(state.cartData).reduce((r, e) => {
+            if(!action.payload[e]) r[e] = state.cartData[e];
+            return r
+          }, {})
+    
+          return {...state, cartData: newState}
 
 
-        case types.DELETE_ITEM:
-          return _.omit(state, [state.cartData.action.payload.name]: action.payload)
+        // case types.DELETE_ITEM:
+        //   return _.omit(state, state.cartData[action.payload.name]: action.payload)
 
 
 	  	case types.MENULIST_FAILED:

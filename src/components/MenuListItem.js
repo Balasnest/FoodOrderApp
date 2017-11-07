@@ -19,6 +19,9 @@ class MenuListItem extends Component {
      		count: this.state.count-1
      	})
      }
+     const item = this.props.item;
+     item.quantity = this.state.count
+     this.props.addToCart(item);
   }		
 
   increment = () => {
@@ -28,16 +31,7 @@ class MenuListItem extends Component {
      const item = this.props.item;
      item.quantity = this.state.count;
 
-     this.props.addToCart(item);
-
-  //    let obj = this.props.cartData.find((o, i) => {
-	 //    if (o.name === item.name) {
-	 //        arr[i] = {quantity: this.state.count}
-	 //        return true; // stop searching
-	 //    }
-	 // });
-
-	 // if(!obj) this.props.cartData.push(item)  	 
+     this.props.addToCart(item);	 
   }	
 
   render() {

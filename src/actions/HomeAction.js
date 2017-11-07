@@ -32,7 +32,7 @@ const menulistResultFailed = (dispatch) => {
 
 export const addToCart = (item) => {
 	return {
-		type: types.UPDATE_ITEM,
+		type: types.ADD_ITEM,
 		payload: item
 	};
 }
