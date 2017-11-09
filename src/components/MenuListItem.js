@@ -13,29 +13,54 @@ var _ = require('lodash');
 class MenuListItem extends Component {
 
   state = {
-  	count: 0,
+  	count: this.props.item.quantity,
   }
 
   decrement = () => {
-     if(this.state.count > 0){
+     if(this.state.count !== 1){
      	this.setState({
-     		count: this.state.count-1
-     	})
+            count: this.state.count-1
+        }, () => {
+             const item = this.props.item;
+		     var uniqueName = item.name;  
+		     item.quantity = this.state.count
+		     
+		     const newItem = {
+		     	[uniqueName]: item
+		     }
+		     this.props.addToCart(newItem);	
+        });
      }
-     const item = this.props.item;
-     item.quantity = this.state.count
-     const newItems = _.mapKeys(item, 'name')
-     this.props.addToCart(newItems);
+     else{
+     	this.setState({
+            count: this.state.count-1
+        }, () => {
+           const item = this.props.item;
+	       var uniqueName = item.name;  
+	       item.quantity = this.state.count
+		     
+			const newItem = {
+			    [uniqueName]: item
+			}
+	     	this.props.removeFromCart(newItem);	
+	    });
+    }
   }		
 
+  
   increment = () => {
-     this.setState({
-     	count: this.state.count+1
-     })
-     const item = this.props.item;
-     item.quantity = this.state.count;
-     const newItems = _.mapKeys(item, 'name')
-     this.props.addToCart(newItems);	 
+    this.setState({
+            count: this.state.count+1
+        }, () => {
+             const item = this.props.item;
+		     var uniqueName = item.name;  
+		     item.quantity = this.state.count
+		     
+		     const newItem = {
+		     	[uniqueName]: item
+		     }
+		     this.props.addToCart(newItem);	
+        });  
   }	
 
   render() {

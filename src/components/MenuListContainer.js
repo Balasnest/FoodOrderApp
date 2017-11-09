@@ -24,9 +24,16 @@ class MenuListContainer extends React.Component {
 
 
   renderItem = ({item}) => {
-    return(
-        <MenuListItem item={item} />
-    );
+
+    if(this.props.cartData){
+      this.props.cartData.forEach(function(obj) {
+        if (obj[name] == item.name) {
+          return <MenuListItem item={obj} />
+        }
+        
+      });
+    }
+    else return <MenuListItem item={item} />
   }
 
 
