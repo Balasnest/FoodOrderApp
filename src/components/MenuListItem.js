@@ -12,6 +12,8 @@ var _ = require('lodash');
 
 class MenuListItem extends Component {
 
+	
+
   state = {
   	count: this.props.item.quantity,
   }

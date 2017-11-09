@@ -6,10 +6,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text, View, Image, Button, FlatList, Dimensions, TouchableOpacity } from 'react-native'
 import MenuListItem from './MenuListItem';
+import Icon from 'react-native-vector-icons/Feather';
+
 
 export const { width, height } = Dimensions.get('window');
 
 class MenuListContainer extends React.Component {
+
+  static navigationOptions = {
+    header: ({ navigate }) => ({
+          right: (    
+            <TouchableOpacity onPress={() => {navigate('Notification')} } >
+              <Icon.Button name={'shopping-cart'} size={26} />
+            </TouchableOpacity>
+          ),
+    }),
+  };
 
   static displayName = 'MenuListContainer';
 
