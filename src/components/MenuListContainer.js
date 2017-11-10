@@ -8,25 +8,30 @@ import { StyleSheet, Text, View, Image, Button, FlatList, Dimensions, TouchableO
 import MenuListItem from './MenuListItem';
 import Icon from 'react-native-vector-icons/Feather';
 
-
 export const { width, height } = Dimensions.get('window');
+
+var _ = require('lodash');
+
 
 class MenuListContainer extends React.Component {
 
-  static navigationOptions = {
-    header: ({ navigate }) => ({
-          right: (    
-            <TouchableOpacity onPress={() => {navigate('Notification')} } >
-              <Icon.Button name={'shopping-cart'} size={26} />
-            </TouchableOpacity>
-          ),
-    }),
-  };
+  // static navigationOptions = {
+  //   header: ({ navigate }) => ({
+  //         right: (    
+  //           <TouchableOpacity onPress={() => {navigate('Notification')} } >
+  //             <Icon.Button name={'shopping-cart'} size={26} />
+  //           </TouchableOpacity>
+  //         ),
+  //   }),
+  // };
 
   static displayName = 'MenuListContainer';
 
   constructor(){
     super();
+    this.state = {
+      data: []
+    }
   }
 
   static propTypes = {
@@ -34,18 +39,35 @@ class MenuListContainer extends React.Component {
     navigation: PropTypes.object.isRequired
   };
 
+  componentWillMount(){
+      mergeInto = this.props.data
+      toMerge = this.props.cartData
+      var mergeData = _.merge({}, mergeInto, toMerge)
+
+      var result = Object.keys(mergeData).map(function(key) {
+        return {[key]: mergeData[key]};
+      });
+
+      this.setState({
+        data: result
+      })
+  }
+
 
   renderItem = ({item}) => {
+    <MenuListItem product={item} />
 
-    if(this.props.cartData){
-      this.props.cartData.forEach(function(obj) {
-        if (obj[name] == item.name) {
-          return <MenuListItem item={obj} />
-        }
+    {/* 
+        // if(this.props.cartData){
+    //   this.props.cartData.forEach(function(obj) {
+    //     if (obj[name] == item.name) {
+    //       return 
+    //     }
         
-      });
-    }
-    else return <MenuListItem item={item} />
+    //   });
+    // }
+    // else return <MenuListItem item={item} />
+     */}
   }
 
 
@@ -57,7 +79,7 @@ class MenuListContainer extends React.Component {
         <View>
           <FlatList
             style={{flex:1, width: width}}
-            data={this.props.navigation.state.params.data}
+            data={this.state.data}
             renderItem={this.renderItem}
             keyExtractor={item => item.id}
           />
@@ -89,9 +111,9 @@ const styles = StyleSheet.create({
   }
 });
 
-// const mapstateToProps = ({home}) => {
-//   const { data, error, loading } = home;
-//   return { data, error, loading };
-// }
+const mapstateToProps = ({home}) => {
+  const { data, cartData, loading } = home;
+  return { data, cartData, loading };
+}
 
-export default MenuListContainer;
+export default connect(mapstateToProps, actions)(MenuListContainer);

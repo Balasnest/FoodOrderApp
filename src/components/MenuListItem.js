@@ -12,18 +12,21 @@ var _ = require('lodash');
 
 class MenuListItem extends Component {
 
-	
-
-  state = {
-  	count: this.props.item.quantity,
+  constructor(props){
+  	super(props);
+  	this.state = {
+  		count: this.props.product.quantity,
+  	}
   }
+
+  
 
   decrement = () => {
      if(this.state.count !== 1){
      	this.setState({
             count: this.state.count-1
         }, () => {
-             const item = this.props.item;
+             const item = this.props.product;
 		     var uniqueName = item.name;  
 		     item.quantity = this.state.count
 		     
@@ -37,7 +40,7 @@ class MenuListItem extends Component {
      	this.setState({
             count: this.state.count-1
         }, () => {
-           const item = this.props.item;
+           const item = this.props.product;
 	       var uniqueName = item.name;  
 	       item.quantity = this.state.count
 		     
@@ -54,7 +57,7 @@ class MenuListItem extends Component {
     this.setState({
             count: this.state.count+1
         }, () => {
-             const item = this.props.item;
+             const item = this.props.product;
 		     var uniqueName = item.name;  
 		     item.quantity = this.state.count
 		     
@@ -67,7 +70,7 @@ class MenuListItem extends Component {
 
   render() {
     const { main, container, middleContainer, lastContainer, thinLine, headerLabel, subHeaderLbl } = styles;
-    const { name,price,tax, imgPath } = this.props.item;
+    const { name,price,tax, imgPath } = this.props.product;
     console.log(this.props)
     return(
   		<View style={main}>
