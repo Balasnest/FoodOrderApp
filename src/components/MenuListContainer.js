@@ -44,9 +44,8 @@ class MenuListContainer extends React.Component {
       toMerge = this.props.cartData
       var mergeData = _.merge({}, mergeInto, toMerge)
 
-      var result = Object.keys(mergeData).map(function(key) {
-        return {[key]: mergeData[key]};
-      });
+      var result =  Object.keys(mergeData).map(function(key) { return mergeData[key] });
+      console.log(result)
 
       this.setState({
         data: result
@@ -55,7 +54,7 @@ class MenuListContainer extends React.Component {
 
 
   renderItem = ({item}) => {
-    <MenuListItem product={item} />
+    return <MenuListItem item={item} />
 
     {/* 
         // if(this.props.cartData){

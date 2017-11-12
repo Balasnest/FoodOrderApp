@@ -9,24 +9,21 @@ import Icon from 'react-native-vector-icons/Feather';
 
 var _ = require('lodash');
 
-
 class MenuListItem extends Component {
 
-  constructor(props){
-  	super(props);
+  constructor(){
+  	super();
   	this.state = {
-  		count: this.props.product.quantity,
+  		count: 0,
   	}
   }
-
-  
 
   decrement = () => {
      if(this.state.count !== 1){
      	this.setState({
             count: this.state.count-1
         }, () => {
-             const item = this.props.product;
+             const item = this.props.item;
 		     var uniqueName = item.name;  
 		     item.quantity = this.state.count
 		     
@@ -40,7 +37,7 @@ class MenuListItem extends Component {
      	this.setState({
             count: this.state.count-1
         }, () => {
-           const item = this.props.product;
+           const item = this.props.item;
 	       var uniqueName = item.name;  
 	       item.quantity = this.state.count
 		     
@@ -57,7 +54,7 @@ class MenuListItem extends Component {
     this.setState({
             count: this.state.count+1
         }, () => {
-             const item = this.props.product;
+             const item = this.props.item;
 		     var uniqueName = item.name;  
 		     item.quantity = this.state.count
 		     
@@ -70,7 +67,7 @@ class MenuListItem extends Component {
 
   render() {
     const { main, container, middleContainer, lastContainer, thinLine, headerLabel, subHeaderLbl } = styles;
-    const { name,price,tax, imgPath } = this.props.product;
+    const { name,price,tax, imgPath } = this.props.item;
     console.log(this.props)
     return(
   		<View style={main}>
